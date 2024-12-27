@@ -25,7 +25,7 @@ const App = () => {
 
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${searchQuery}&page=${page}&client_id=${API_KEY}&per_page=12`
+        `https://api.unsplash.com/search/photos?query=${searchQuery}&page=${page}&client_id=${API_KEY}&per_page=15`
       );
 
       if (!response.ok) {
@@ -34,7 +34,7 @@ const App = () => {
 
       const data = await response.json();
       setImages((prev) => [...prev, ...data.results]);
-      setTotalPages(data.total_pages);
+      setTotalPages(Math.ceil(data.total / 15));
     } catch (err) {
       setError(err.message);
     } finally {
